@@ -1,0 +1,20 @@
+:root {
+  --color-bg: #121212;          /* Fondo principal */
+  --color-surface: #1e1e1e;     /* Superficies (cards, modales, etc.) */
+  --color-primary: #bb86fc;     /* Color primario (botones, links) */
+  --color-primary-variant: #3700b3;
+  --color-secondary: #03dac6;   /* Color secundario (resaltados) */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #b3b3b3;
+  --color-border: #2c2c2c;      /* Bordes sutiles */
+  --color-error: #cf6679;       /* Errores */
+
+  /* Estados */
+  --color-hover: #2a2a2a;
+  --color-active: #333333;
+  --color-focus: #3f3f3f;
+}
+
+body {
+  background-color: var(--color-bg);
+}
