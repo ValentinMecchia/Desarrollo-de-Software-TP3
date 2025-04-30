@@ -1,24 +1,18 @@
-import React, { useState } from "react";
-import SearchBar from "./SearchBar";
+import React from "react";
+import { Link } from "react-router-dom";
+import "./Styles/Navbar.css"; // Importa los estilos
 
 function Navbar() {
-    const [searchQuery, setSearchQuery] = useState("");
-
-    const handleSearch = (query) => {
-        setSearchQuery(query);
-        console.log("Searching for:", query); // Aquí puedes integrar la lógica de búsqueda con la API de Spotify
-    };
-
     return (
         <nav className="navbar">
-            <div className="navbar__logo">Echofy</div>
+            <div className="navbar__logo">
+                <Link to="/">
+                    <img src="../../public/assets/logo.png" alt="Echofy Logo" />
+                </Link>
+            </div>
             <ul className="navbar__links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li>
-                    <SearchBar onSearch={handleSearch} />
-                </li>
-                <li><a href="#contact">Contact</a></li>
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/about">About</Link></li>
             </ul>
         </nav>
     );

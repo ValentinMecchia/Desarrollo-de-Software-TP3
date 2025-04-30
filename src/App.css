@@ -1,0 +1,93 @@
+:root {
+  --color-bg: #121212;          /* Fondo principal */
+  --color-surface: #1e1e1e;     /* Superficies (cards, modales, etc.) */
+  --color-primary: #bb86fc;     /* Color primario (botones, links) */
+  --color-primary-variant: #3700b3;
+  --color-secondary: #03dac6;   /* Color secundario (resaltados) */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #b3b3b3;
+  --color-border: #2c2c2c;      /* Bordes sutiles */
+  --color-error: #cf6679;       /* Errores */
+
+  /* Estados */
+  --color-hover: #2a2a2a;
+  --color-active: #333333;
+  --color-focus: #3f3f3f;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  padding: 1rem;
+  background-color: var(--color-surface);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+h1, h2, h3 {
+  text-align: center;
+  color: var(--color-primary);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+}
+
+img {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+button {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--color-primary);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: var(--color-primary-variant);
+}
+
+input[type="text"] {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  width: 100%;
+  max-width: 400px;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}

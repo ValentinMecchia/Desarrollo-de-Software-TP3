@@ -1,14 +1,27 @@
-import "./Styles/SearchBar.css";
+import React, { useState } from "react";
+import "./Styles/SearchBar.css"; // Importa los estilos
 
 function SearchBar({ onSearch }) {
+    const [query, setQuery] = useState("");
+
+    const handleSearchClick = () => {
+        if (query.trim()) {
+            onSearch(query);
+        }
+    };
+
     return (
         <div className="search-bar">
             <input
-                type="text"
-                placeholder="Search for an artist..."
                 className="search-bar__input"
-                onChange={(e) => onSearch(e.target.value)}
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Buscar artista"
             />
+            <button className="search-bar__button" onClick={handleSearchClick}>
+                Buscar
+            </button>
         </div>
     );
 }
