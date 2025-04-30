@@ -1,0 +1,77 @@
+.favorite-artists-sidebar {
+    position: fixed; /* Fija el sidebar en la pantalla */
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 300px;
+    background-color: #1e272e; /* Fondo oscuro */
+    color: #ffffff; /* Texto claro */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    transition: transform 0.3s ease; /* Transición para mostrar/ocultar */
+    transform: translateX(100%); /* Oculta el sidebar fuera de la pantalla */
+    z-index: 1000;
+}
+
+.favorite-artists-sidebar.open {
+    transform: translateX(0); /* Muestra el sidebar */
+}
+
+.toggle-button {
+    position: fixed; /* Fija el botón en la pantalla */
+    top: 20px;
+    right: 20px;
+    background-color: #007bff; /* Azul vibrante */
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    z-index: 1100; /* Asegura que el botón esté encima del sidebar */
+    transition: background-color 0.3s ease;
+}
+
+.toggle-button:hover {
+    background-color: #0056b3; /* Azul más oscuro al pasar el cursor */
+}
+
+.favorite-artists-content {
+    padding: 20px;
+}
+
+.favorite-artists-content h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #ffffff; /* Texto claro */
+    border-bottom: 1px solid #444; /* Línea divisoria */
+    padding-bottom: 5px;
+}
+
+.favorite-artists-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.favorite-artists-content li {
+    margin-bottom: 10px;
+}
+
+.favorite-artists-content a {
+    text-decoration: none;
+    color: #1abc9c; /* Verde claro */
+    font-size: 16px;
+}
+
+.favorite-artists-content a:hover {
+    text-decoration: underline;
+    color: #16a085; /* Verde más oscuro */
+}
+
+.no-favorites {
+    font-size: 14px;
+    color: #bdc3c7; /* Texto gris claro */
+    margin-top: 10px;
+    text-align: center;
+}

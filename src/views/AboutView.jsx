@@ -2,9 +2,12 @@ import React from "react";
 import "./Styles/AboutView.css";
 import Navbar from "../components/Navbar";
 
+
 function AboutView() {
     return (
         <div className="about-view">
+         
+            
             <h1>About Echofy</h1>
             <p>
                 Echofy es una aplicación que te permite buscar tus artistas favoritos y explorar sus álbumes.
