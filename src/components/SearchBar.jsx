@@ -12,14 +12,20 @@ function SearchBar({ onSearch }) {
 
     return (
         <div className="search-bar">
+            
             <input
                 className="search-bar__input"
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Buscar artista"
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        handleSearchClick();
+                    }
+                }}
             />
-            <button className="search-bar__button" onClick={handleSearchClick}>
+            <button className="search-bar__button" onClick={handleSearchClick} >
                 Buscar
             </button>
         </div>
