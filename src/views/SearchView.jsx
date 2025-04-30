@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import SearchBar from "../components/SearchBar";
-import Navbar from "../components/Navbar"; // Importa el Navbar
+import Navbar from "../components/Navbar";
 import { getAccessToken, searchArtists } from "../services/spotify";
 import { Link } from "react-router-dom";
-import "./Styles/SearchView.css"; // Importa los estilos
+import "./Styles/SearchView.css";
 
 function SearchView() {
     const [artists, setArtists] = useState([]);
@@ -15,18 +15,17 @@ function SearchView() {
             const token = await getAccessToken();
             const results = await searchArtists(query, token);
             setArtists(results);
-        } catch (err) {
+        } catch (e) {
             setError("Error al buscar artistas.");
         }
     };
 
     return (
         <div className="search-view">
-            <Navbar /> {/* Agrega el Navbar */}
             <div className="search-view__content">
                 <img
                     className="search-view__logo"
-                    src="../assets/logo.png" // Ruta del logo
+                    src="../assets/logo.png"
                     alt="Echofy Logo"
                 />
                 <h1 className="search-view__title">Echofy</h1>

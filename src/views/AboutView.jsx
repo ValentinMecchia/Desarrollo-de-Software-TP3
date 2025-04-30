@@ -1,5 +1,6 @@
 import React from "react";
-import "./Styles/AboutView.css"; // Importa los estilos
+import "./Styles/AboutView.css";
+import Navbar from "../components/Navbar";
 
 function AboutView() {
     return (

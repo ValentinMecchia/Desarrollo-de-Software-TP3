@@ -24,6 +24,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .container {
@@ -33,6 +34,7 @@ body {
   background-color: var(--color-surface);
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
 }
 
 h1, h2, h3 {
@@ -90,4 +92,23 @@ input[type="text"] {
 input[type="text"]:focus {
   outline: none;
   border-color: var(--color-primary);
+}
+
+.navbar {
+  width: 100vw;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.app {
+  padding-top: 60px;
+  max-width: 100%;
+  margin-top: 0; /* Elimina el margen superior ya que sticky ocupa espacio */
 }

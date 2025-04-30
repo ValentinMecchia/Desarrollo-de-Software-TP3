@@ -1,4 +1,4 @@
-const API_BASE = "/api"; // Usar proxy configurado en vite.config.js
+const API_BASE = "/api";
 
 export async function getAccessToken() {
     try {
