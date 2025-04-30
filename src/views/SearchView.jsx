@@ -28,7 +28,6 @@ function SearchView() {
                     src="../assets/logo.png"
                     alt="Echofy Logo"
                 />
-                <h1 className="search-view__title">Echofy</h1>
                 <SearchBar onSearch={handleSearch} />
                 {error && <p className="search-view__error">{error}</p>}
                 <ul className="artist-list">
