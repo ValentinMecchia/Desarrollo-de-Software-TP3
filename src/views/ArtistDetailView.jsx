@@ -65,7 +65,7 @@ function ArtistDetailView() {
         <div className="artist-detail">
             <div className="artist-detail__top-bar">
                 <button className="back-button" onClick={() => window.history.back()}>
-                    Back
+                    Volver
                 </button>
                 <button
                     onClick={toggleFavorite}

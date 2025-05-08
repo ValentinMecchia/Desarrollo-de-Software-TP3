@@ -58,6 +58,7 @@ function AlbumView() {
                 />
                 <h1 className="album-view__name">{album.name}</h1>
                 <p className="album-view__artist">{album.artists[0]?.name}</p>
+                <backButton className="back-button" onClick={() => window.history.back()}>Volver</backButton>
             </div>
             <ul className="album-view__tracks-list">
                 {tracks.map((track) => (
