@@ -7,7 +7,7 @@ function Navbar() {
         <nav className="navbar">
             <div className="navbar__logo">
                 <Link to="/" className="navbar__logo-link">
-                    <img src="../../public/assets/logo.png" alt="Echofy Logo" />
+                    <img src="../../assets/logo.png" alt="Echofy Logo" />
                 </Link>
             </div>
             <ul className="navbar__links">
