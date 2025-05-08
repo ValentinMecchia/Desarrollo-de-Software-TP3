@@ -8,7 +8,7 @@ export async function getAccessToken() {
             throw new Error("No se pudo obtener el token de acceso.");
         }
         const data = await res.json();
-        console.log("Access token obtained:", data.access_token); // Debugging line
+        console.log("Access token obtained:", data.access_token);
         return data.access_token;
     } catch (err) {
         console.error("Error en getAccessToken:", err.message);

@@ -3,15 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Styles/FavoritesView.css";
 
 function FavoritesView() {
-    useEffect(() => {
-        const cleaned = favoriteSongs.filter(song => song.albumId);
-        if (cleaned.length !== favoriteSongs.length) {
-            setFavoriteSongs(cleaned);
-            localStorage.setItem("favoriteSongs", JSON.stringify(cleaned));
-            console.warn("Se eliminaron canciones sin albumId del localStorage.");
-        }
-    }, []);
-    
     const [favoriteArtists, setFavoriteArtists] = useState(
         JSON.parse(localStorage.getItem("favoriteArtists")) || []
     );
@@ -21,7 +12,7 @@ function FavoritesView() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("Canciones favoritas:", favoriteSongs);
+        console.log("Canciones favoritas:", favoriteSongs); // Línea de depuración para inspeccionar canciones favoritas
     }, [favoriteSongs]);
 
     const removeFavoriteArtist = (artistId) => {
@@ -42,7 +33,7 @@ function FavoritesView() {
             alert("No se puede navegar al álbum porque falta el ID del álbum.");
             return;
         }
-        console.log("Navegando al álbum con albumId:", albumId);
+        console.log("Navegando al álbum con albumId:", albumId); // Línea de depuración
         navigate(`/album/${albumId}`);
     };
 
@@ -84,11 +75,10 @@ function FavoritesView() {
                     ) : (
                         <div className="favorites-grid favorites-grid-songs">
                             {favoriteSongs.map((song) => (
-                                console.log("Canción favorita:", song),
                                 <div
                                     key={song.id}
                                     className="favorites-item favorite-item-song"
-                                    onClick={() => handleSongClick(song.albumId)}
+                                    onClick={() => handleSongClick(song.albumId)} // Redirigir al álbum correspondiente
                                     style={{ cursor: "pointer" }}
                                 >
                                     <div className="favorites-item__content">
@@ -100,7 +90,7 @@ function FavoritesView() {
                                         <button
                                             className="remove-button"
                                             onClick={(e) => {
-                                                e.stopPropagation();
+                                                e.stopPropagation(); // Evitar la navegación al eliminar
                                                 removeFavoriteSong(song.id);
                                             }}
                                         >

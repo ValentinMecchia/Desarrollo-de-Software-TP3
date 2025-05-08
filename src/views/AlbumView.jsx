@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getAccessToken } from "../services/spotify";
 import "./Styles/AlbumView.css";
 
 function AlbumView() {
     const { albumId } = useParams();
-    const navigate = useNavigate();
     const [album, setAlbum] = useState(null);
     const [tracks, setTracks] = useState([]);
     const [favoriteSongs, setFavoriteSongs] = useState(
@@ -64,12 +63,7 @@ function AlbumView() {
                 />
                 <h1 className="album-view__name">{album.name}</h1>
                 <p className="album-view__artist">{album.artists[0]?.name}</p>
-                <button
-                    className="back-button"
-                    onClick={() => navigate(`/artist/${album.artists[0]?.id}`)}
-                >
-                    Volver
-                </button>
+                <button className="back-button" onClick={() => window.history.back()}>Volver</button>
             </div>
             <ul className="album-view__tracks-list">
                 {tracks.map((track) => (

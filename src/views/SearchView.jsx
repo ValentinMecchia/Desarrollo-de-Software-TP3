@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import { getAccessToken, searchArtists } from "../services/spotify";
 import { Link } from "react-router-dom";
@@ -8,6 +8,21 @@ function SearchView() {
     const [artists, setArtists] = useState([]);
     const [songs, setSongs] = useState([]);
     const [error, setError] = useState(null);
+    const [favoriteArtists, setFavoriteArtists] = useState(
+        JSON.parse(localStorage.getItem("favoriteArtists")) || []
+    );
+
+    useEffect(() => {
+        const handleUpdateFavoriteArtists = (event) => {
+            setFavoriteArtists(event.detail);
+        };
+
+        window.addEventListener("updateFavoriteArtists", handleUpdateFavoriteArtists);
+
+        return () => {
+            window.removeEventListener("updateFavoriteArtists", handleUpdateFavoriteArtists);
+        };
+    }, []);
 
     const handleSearch = async (query) => {
         try {
@@ -55,6 +70,22 @@ function SearchView() {
                                     </Link>
                                 </li>
                             ))}
+                    </ul>
+                </div>
+                <div className="favorites-sidebar">
+                    <h3>Artistas Favoritos</h3>
+                    <ul>
+                        {favoriteArtists.map((artist) => (
+                            <li key={artist.id}>
+                                <Link to={`/artist/${artist.id}`} className="favorites-sidebar__link">
+                                    <img
+                                        src={artist.images?.[0]?.url || "https://via.placeholder.com/150"}
+                                        alt={artist.name}
+                                    />
+                                    <p>{artist.name}</p>
+                                </Link>
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </div>
