@@ -13,12 +13,23 @@
 
 .navbar__logo-link {
     font-size: 0;
+    scale: 1;
+}
+
+.navbar__logo-link:hover {
+    scale: 1;
 }
 
 .navbar__logo img {
     width: 50px;
     height: auto;
     box-shadow: none;
+    scale: 1;
+}
+
+.navbar__logo img:hover {
+    box-shadow: none;
+    scale: 1;
 }
 
 .navbar__links {
