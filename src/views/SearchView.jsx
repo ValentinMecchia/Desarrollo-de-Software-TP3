@@ -3,6 +3,7 @@ import SearchBar from "../components/SearchBar";
 import { getAccessToken, searchArtists } from "../services/spotify";
 import { Link } from "react-router-dom";
 import "./Styles/SearchView.css";
+import logo from "../../assets/logo.png"
 
 function SearchView() {
     const [artists, setArtists] = useState([]);
@@ -52,7 +53,7 @@ function SearchView() {
                 <div className="search-view__content">
                     <img
                         className="search-view__logo"
-                        src="../../assets/logo.png"
+                        src={logo}
                         alt="Echofy Logo"
                     />
                     <SearchBar onSearch={handleSearch} />
