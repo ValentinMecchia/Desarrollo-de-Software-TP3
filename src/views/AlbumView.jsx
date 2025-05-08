@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getAccessToken } from "../services/spotify";
 import "./Styles/AlbumView.css";
 
 function AlbumView() {
     const { albumId } = useParams();
+    const navigate = useNavigate();
     const [album, setAlbum] = useState(null);
     const [tracks, setTracks] = useState([]);
     const [favoriteSongs, setFavoriteSongs] = useState(
@@ -25,7 +26,7 @@ function AlbumView() {
                 }
 
                 const albumData = await albumRes.json();
-                console.log("Album data:", albumData); // Debugging line to inspect API response
+                console.log("Album data:", albumData);
                 setAlbum(albumData);
                 setTracks(albumData.tracks.items);
             } catch (error) {
@@ -37,10 +38,15 @@ function AlbumView() {
     }, [albumId]);
 
     const toggleFavoriteSong = (song) => {
+        if (!album) {
+            console.error("El álbum no está cargado. No se puede guardar la canción como favorita.");
+            return;
+        }
+
         const isFavorite = favoriteSongs.some((fav) => fav.id === song.id);
         const updatedFavorites = isFavorite
             ? favoriteSongs.filter((fav) => fav.id !== song.id)
-            : [...favoriteSongs, song];
+            : [...favoriteSongs, { ...song, albumId: album.id }];
 
         setFavoriteSongs(updatedFavorites);
         localStorage.setItem("favoriteSongs", JSON.stringify(updatedFavorites));
@@ -58,7 +64,12 @@ function AlbumView() {
                 />
                 <h1 className="album-view__name">{album.name}</h1>
                 <p className="album-view__artist">{album.artists[0]?.name}</p>
-                <backButton className="back-button" onClick={() => window.history.back()}>Volver</backButton>
+                <button
+                    className="back-button"
+                    onClick={() => navigate(`/artist/${album.artists[0]?.id}`)}
+                >
+                    Volver
+                </button>
             </div>
             <ul className="album-view__tracks-list">
                 {tracks.map((track) => (
@@ -76,8 +87,9 @@ function AlbumView() {
                                 onClick={() =>
                                     toggleFavoriteSong({
                                         id: track.id,
-                                        name: track.name,
+                                        name: track.name,   
                                         artist: album.artists[0]?.name,
+                                        albumId: album.id,
                                     })
                                 }
                                 className={`favorite-heart-button ${

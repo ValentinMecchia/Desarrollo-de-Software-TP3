@@ -7,7 +7,7 @@
     padding-top: 2rem;
     background-color: var(--color-bg);
     color: var(--color-text-primary);
-    gap: 7rem;
+    gap: 5rem;
     width: 100%;
     margin: auto;
 }
@@ -19,6 +19,9 @@
     margin-bottom: 2rem;
     gap: 1rem;
     max-width: 500px;
+    background-color: var(--color-surface);
+    padding: 2rem 3rem;
+    border-radius: 8px;
 }
 
 .album-view__image {
@@ -68,12 +71,13 @@
     padding: 1rem;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease-in-out;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin: 0;
 }
 
 .album-view__track-item:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.02);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
 }
 

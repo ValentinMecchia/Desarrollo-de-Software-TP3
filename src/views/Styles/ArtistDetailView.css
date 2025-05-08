@@ -114,12 +114,13 @@
     padding: 1rem;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease-in-out;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
 }
 
 .artist-detail__album-item:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.02);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
 }
 

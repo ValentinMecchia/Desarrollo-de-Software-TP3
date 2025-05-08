@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getAccessToken } from "../services/spotify";
-import "./Styles/ArtistDetailView.css"; // Importa los estilos
-import BackButton from "../components/BackButton";
+import "./Styles/ArtistDetailView.css";
+import { useNavigate } from "react-router-dom";
 
 function ArtistDetailView() {
     const { id } = useParams();
@@ -10,6 +10,7 @@ function ArtistDetailView() {
     const [albums, setAlbums] = useState([]);
     const [error, setError] = useState(null);
     const [isFavorite, setIsFavorite] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchArtistDetails = async () => {
@@ -17,21 +18,18 @@ function ArtistDetailView() {
                 setError(null);
                 const token = await getAccessToken();
 
-                // Fetch artist details
                 const artistRes = await fetch(`https://api.spotify.com/v1/artists/${id}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 const artistData = await artistRes.json();
                 setArtist(artistData);
 
-                // Fetch artist albums
                 const albumsRes = await fetch(`https://api.spotify.com/v1/artists/${id}/albums`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 const albumsData = await albumsRes.json();
                 setAlbums(albumsData.items);
 
-                // Check if artist is already a favorite
                 const storedFavorites = JSON.parse(localStorage.getItem("favoriteArtists")) || [];
                 setIsFavorite(storedFavorites.some((fav) => fav.id === id));
             } catch (err) {
@@ -43,7 +41,7 @@ function ArtistDetailView() {
     }, [id]);
 
     const toggleFavorite = () => {
-        if (!artist) return; // Ensure artist data is loaded
+        if (!artist) return;
 
         const storedFavorites = JSON.parse(localStorage.getItem("favoriteArtists")) || [];
         let updatedFavorites;
@@ -64,7 +62,7 @@ function ArtistDetailView() {
     return (
         <div className="artist-detail">
             <div className="artist-detail__top-bar">
-                <button className="back-button" onClick={() => window.history.back()}>
+                <button className="back-button" onClick={() => navigate(`/`)}>
                     Volver
                 </button>
                 <button

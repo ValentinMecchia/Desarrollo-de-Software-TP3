@@ -13,9 +13,6 @@ app.get("/api/token", async (req, res) => {
     console.log("Solicitud recibida en /api/token");
     try {
         const credentials = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
-        console.log("Enviando solicitud a Spotify para obtener el token...");
-        console.log("Credenciales codificadas en base64:", credentials);
-
         const response = await fetch("https://accounts.spotify.com/api/token", {
             method: "POST",
             headers: {
@@ -25,24 +22,18 @@ app.get("/api/token", async (req, res) => {
             body: "grant_type=client_credentials",
         });
 
-        console.log(`Estado de la respuesta de Spotify: ${response.status}`);
         if (!response.ok) {
             const errorData = await response.json();
             console.error("Error en la respuesta de Spotify:", errorData);
-            throw new Error("Error al obtener el token de Spotify");
+            return res.status(response.status).json({ error: "Error al obtener el token de Spotify", details: errorData });
         }
 
         const data = await response.json();
         console.log("Token recibido correctamente:", data.access_token);
 
-        if (!data.access_token) {
-            throw new Error("Token no recibido en la respuesta de Spotify");
-        }
-
         res.json(data);
     } catch (err) {
         console.error("Error al procesar la solicitud:", err.message);
-        console.error("Detalles del error:", err);
         res.status(500).json({ error: "Error al obtener el token de Spotify", details: err.message });
     }
 });

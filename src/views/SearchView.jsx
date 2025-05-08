@@ -8,9 +8,6 @@ function SearchView() {
     const [artists, setArtists] = useState([]);
     const [songs, setSongs] = useState([]);
     const [error, setError] = useState(null);
-    const [favoriteSongs, setFavoriteSongs] = useState(
-        JSON.parse(localStorage.getItem("favoriteSongs")) || []
-    );
 
     const handleSearch = async (query) => {
         try {
@@ -32,20 +29,6 @@ function SearchView() {
             console.error("Error fetching artists:", e);
             setError("Error al buscar artistas.");
         }
-    };
-
-    const toggleFavoriteSong = (song) => {
-        const isFavorite = favoriteSongs.some((fav) => fav.id === song.id);
-        let updatedFavorites;
-
-        if (isFavorite) {
-            updatedFavorites = favoriteSongs.filter((fav) => fav.id !== song.id);
-        } else {
-            updatedFavorites = [...favoriteSongs, song];
-        }
-
-        setFavoriteSongs(updatedFavorites);
-        localStorage.setItem("favoriteSongs", JSON.stringify(updatedFavorites));
     };
 
     return (

@@ -4,7 +4,7 @@ import SearchView from "./views/SearchView";
 import ArtistDetailView from "./views/ArtistDetailView";
 import AlbumView from "./views/AlbumView";
 import AboutView from "./views/AboutView";
-import FavoritesView from "./views/FavoritesView"; // Import the updated view
+import FavoritesView from "./views/FavoritesView";
 import Navbar from "./components/Navbar";
 import "./App.css";
 

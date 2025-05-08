@@ -33,6 +33,7 @@
     width: 150px;
     margin-bottom: 1rem;
     box-shadow: none;
+    animation: scaleUp 0.5s ease-in-out;
 }
 
 .search-view__title {
@@ -62,12 +63,14 @@
     background-color: var(--color-surface);
     padding: 1rem;
     border-radius: 8px;
-    transition: background 0.3s ease, transform 0.3s ease;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .artist-list__item:hover {
     background: rgba(255, 255, 255, 0.2); 
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
 }
 
 .artist-list__link {
