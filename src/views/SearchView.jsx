@@ -52,7 +52,7 @@ function SearchView() {
                 <div className="search-view__content">
                     <img
                         className="search-view__logo"
-                        src="../assets/logo.png"
+                        src="../../assets/logo.png"
                         alt="Echofy Logo"
                     />
                     <SearchBar onSearch={handleSearch} />
