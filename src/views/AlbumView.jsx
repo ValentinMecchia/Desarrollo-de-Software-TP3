@@ -1,88 +1,98 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import "./Styles/AlbumView.css"; // Importa los estilos
+import { useParams } from "react-router-dom";
+import { getAccessToken } from "../services/spotify";
+import "./Styles/AlbumView.css";
 
-const AlbumView = () => {
+function AlbumView() {
     const { albumId } = useParams();
-    const navigate = useNavigate();
-    const [albumDetails, setAlbumDetails] = useState(null);
-    const [error, setError] = useState(null);
-    const [favoriteSongs, setFavoriteSongs] = useState([]);
-
-    const toggleFavorite = (track) => {
-        const updatedFavorites = favoriteSongs.includes(track)
-            ? favoriteSongs.filter((fav) => fav !== track)
-            : [...favoriteSongs, track];
-        setFavoriteSongs(updatedFavorites);
-        localStorage.setItem("favoriteSongs", JSON.stringify(updatedFavorites));
-    };
+    const [album, setAlbum] = useState(null);
+    const [tracks, setTracks] = useState([]);
+    const [favoriteSongs, setFavoriteSongs] = useState(
+        JSON.parse(localStorage.getItem("favoriteSongs")) || []
+    );
 
     useEffect(() => {
         const fetchAlbumDetails = async () => {
             try {
-                setError(null);
-                const response = await fetch(`http://localhost:3001/api/albums/${albumId}`);
-                if (!response.ok) {
-                    throw new Error("Error al obtener los detalles del álbum");
+                const token = await getAccessToken();
+                const albumRes = await fetch(`https://api.spotify.com/v1/albums/${albumId}`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+
+                if (!albumRes.ok) {
+                    console.error("Error fetching album details:", albumRes.statusText);
+                    return;
                 }
-                const data = await response.json();
-                setAlbumDetails(data);
-            } catch (err) {
-                setError(err.message);
+
+                const albumData = await albumRes.json();
+                console.log("Album data:", albumData); // Debugging line to inspect API response
+                setAlbum(albumData);
+                setTracks(albumData.tracks.items);
+            } catch (error) {
+                console.error("Error fetching album details:", error);
             }
         };
 
         fetchAlbumDetails();
     }, [albumId]);
 
-    if (error) return <p className="error">{error}</p>;
-    if (!albumDetails) return <p className="loading">Cargando...</p>;
+    const toggleFavoriteSong = (song) => {
+        const isFavorite = favoriteSongs.some((fav) => fav.id === song.id);
+        const updatedFavorites = isFavorite
+            ? favoriteSongs.filter((fav) => fav.id !== song.id)
+            : [...favoriteSongs, song];
+
+        setFavoriteSongs(updatedFavorites);
+        localStorage.setItem("favoriteSongs", JSON.stringify(updatedFavorites));
+    };
+
+    if (!album) return <p>Loading...</p>;
 
     return (
         <div className="album-view">
-            <button onClick={() => navigate(`/artist/${albumDetails.artistId}`)} className="back-button">
-                Volver al Artista
-            </button>
-            <div className="album-view__left">
+            <div className="album-view__header">
                 <img
-                    src={albumDetails.imageUrl || "https://via.placeholder.com/300"}
-                    alt={albumDetails.albumName}
                     className="album-view__image"
+                    src={album.images?.[0]?.url || "https://via.placeholder.com/150"}
+                    alt={album.name}
                 />
-                <h1 className="album-view__name">{albumDetails.albumName}</h1>
-                <h2 className="album-view__artist">{albumDetails.artistName}</h2>
+                <h1 className="album-view__name">{album.name}</h1>
+                <p className="album-view__artist">{album.artists[0]?.name}</p>
             </div>
-            <div className="album-view__right">
-                <h3 className="album-view__tracks-title">Canciones</h3>
-                <ul className="album-view__tracks-list">
-                    {albumDetails.tracks.map((track, index) => (
-                        <li key={index} className="album-view__track-item">
-                            <div className="album-view__track-info">
-                                <p className="album-view__track-name">{track.name}</p>
-                                <p className="album-view__track-duration">
-                                    Duración: {(track.duration / 60000).toFixed(2)} minutos
-                                </p>
-                                <button
-                                    onClick={() => toggleFavorite(track)}
-                                    className={`favorite-button ${
-                                        favoriteSongs.includes(track) ? "favorited" : ""
-                                    }`}
-                                >
-                                    {favoriteSongs.includes(track) ? "Quitar de Favoritos" : "Agregar a Favoritos"}
-                                </button>
-                            </div>
-                            {track.previewUrl && (
-                                <audio controls className="album-view__track-audio">
-                                    <source src={track.previewUrl} type="audio/mpeg" />
-                                    Tu navegador no soporta el elemento de audio.
-                                </audio>
-                            )}
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            <ul className="album-view__tracks-list">
+                {tracks.map((track) => (
+                    <li key={track.id} className="album-view__track-item">
+                        <div className="album-view__track-info">
+                            <span className="favorites-item__icon">🔊</span>
+                            <p className="album-view__track-name">{track.name}</p>
+                        </div>
+                        <div className="left">
+                        <p className="album-view__track-duration">
+                            {Math.floor(track.duration_ms / 60000)}:
+                            {((track.duration_ms % 60000) / 1000).toFixed(0).padStart(2, "0")}
+                        </p>
+                        <button
+                                onClick={() =>
+                                    toggleFavoriteSong({
+                                        id: track.id,
+                                        name: track.name,
+                                        artist: album.artists[0]?.name,
+                                    })
+                                }
+                                className={`favorite-heart-button ${
+                                    favoriteSongs.some((fav) => fav.id === track.id) ? "favorited" : ""
+                                }`}
+                            >
+                                <span className="material-icons">
+                                    {favoriteSongs.some((fav) => fav.id === track.id) ? "favorite" : "favorite_border"}
+                                </span>
+                            </button>
+                        </div>
+                    </li>
+                ))}
+            </ul>
         </div>
     );
-};
+}
 
 export default AlbumView;

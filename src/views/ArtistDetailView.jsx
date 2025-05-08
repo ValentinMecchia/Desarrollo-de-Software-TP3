@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getAccessToken } from "../services/spotify";
 import "./Styles/ArtistDetailView.css"; // Importa los estilos
-import BackButton from "../components/BackButton"; 
+import BackButton from "../components/BackButton";
 
 function ArtistDetailView() {
     const { id } = useParams();
@@ -43,13 +43,15 @@ function ArtistDetailView() {
     }, [id]);
 
     const toggleFavorite = () => {
+        if (!artist) return; // Ensure artist data is loaded
+
         const storedFavorites = JSON.parse(localStorage.getItem("favoriteArtists")) || [];
         let updatedFavorites;
 
         if (isFavorite) {
-            updatedFavorites = storedFavorites.filter((fav) => fav.id !== id);
+            updatedFavorites = storedFavorites.filter((fav) => fav.id !== artist.id);
         } else {
-            updatedFavorites = [...storedFavorites, { id, name: artist.name }];
+            updatedFavorites = [...storedFavorites, artist];
         }
 
         localStorage.setItem("favoriteArtists", JSON.stringify(updatedFavorites));
@@ -61,14 +63,23 @@ function ArtistDetailView() {
 
     return (
         <div className="artist-detail">
-            <BackButton onBack={() => window.history.back()} />
-            <button onClick={toggleFavorite} className="favorite-button">
-                {isFavorite ? "Quitar de Favoritos" : "Agregar a Favoritos"}
-            </button>
+            <div className="artist-detail__top-bar">
+                <button className="back-button" onClick={() => window.history.back()}>
+                    Back
+                </button>
+                <button
+                    onClick={toggleFavorite}
+                    className={`favorite-heart-button ${isFavorite ? "favorited" : ""}`}
+                >
+                    <span className="material-icons">
+                        {isFavorite ? "favorite" : "favorite_border"}
+                    </span>
+                </button>
+            </div>
             <h1 className="artist-detail__name">{artist.name}</h1>
             <img
                 className="artist-detail__image"
-                src={artist.images[0]?.url}
+                src={artist.images?.[0]?.url || "https://via.placeholder.com/150"}
                 alt={artist.name}
                 width="200"
             />
@@ -79,7 +90,7 @@ function ArtistDetailView() {
                         <Link to={`/album/${album.id}`} className="artist-detail__album-link">
                             <img
                                 className="artist-detail__album-image"
-                                src={album.images[0]?.url}
+                                src={album.images?.[0]?.url || "https://via.placeholder.com/150"}
                                 alt={album.name}
                                 width="50"
                             />

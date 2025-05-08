@@ -6,12 +6,13 @@ function Navbar() {
     return (
         <nav className="navbar">
             <div className="navbar__logo">
-                <Link to="/">
+                <Link to="/" className="navbar__logo-link">
                     <img src="../../public/assets/logo.png" alt="Echofy Logo" />
                 </Link>
             </div>
             <ul className="navbar__links">
                 <li><Link to="/">Home</Link></li>
+                <li><Link to="/favorites">Favorites</Link></li>
                 <li><Link to="/about">About</Link></li>
             </ul>
         </nav>

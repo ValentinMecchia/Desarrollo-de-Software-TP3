@@ -1,13 +1,13 @@
 :root {
-  --color-bg: #121212;          /* Fondo principal */
-  --color-surface: #1e1e1e;     /* Superficies (cards, modales, etc.) */
-  --color-primary: #bb86fc;     /* Color primario (botones, links) */
+  --color-bg: #121212;          /* Dark background */
+  --color-surface: #1e1e1e;     /* Surface color */
+  --color-primary: #bb86fc;     /* Primary color */
   --color-primary-variant: #3700b3;
-  --color-secondary: #03dac6;   /* Color secundario (resaltados) */
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #b3b3b3;
+  --color-secondary: #03dac6;   /* Secondary color */
+  --color-text-primary: #ffffff; /* Primary text color */
+  --color-text-secondary: #b3b3b3; /* Secondary text color */
   --color-border: #2c2c2c;      /* Bordes sutiles */
-  --color-error: #cf6679;       /* Errores */
+  --color-error: #cf6679;       /* Error color */
 
   /* Estados */
   --color-hover: #2a2a2a;
@@ -18,8 +18,11 @@
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  background-color: var(--color-bg);
-  color: var(--color-text-primary);
+  background-color: var(--color-bg); /* Set background color */
+  color: var(--color-text-primary); /* Set text color */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 h1, h2, h3 {
@@ -63,19 +66,6 @@ a:hover {
 
 .navbar__links li a:hover {
   color: var(--color-primary);
-}
-
-input[type="text"] {
-  padding: 0.5rem;
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  background-color: var(--color-surface);
-  color: var(--color-text-primary);
-}
-
-input[type="text"]:focus {
-  outline: none;
-  border-color: var(--color-primary);
 }
 
 button {

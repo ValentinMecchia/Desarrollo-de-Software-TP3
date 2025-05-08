@@ -11,6 +11,10 @@
     width: 100%;
 }
 
+.navbar__logo-link {
+    font-size: 0;
+}
+
 .navbar__logo img {
     width: 50px;
     height: auto;
