@@ -276,6 +276,12 @@
         padding: 0;
     }
 
+    .search-view__main {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
     .search-view__title {
         font-size: 2rem;
     }
