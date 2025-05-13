@@ -166,3 +166,33 @@
     align-items: center;
     gap: 1.5rem;
 }
+
+@media screen and (max-width: 768px) {
+    .favorites-view {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .favorites-box {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .favorites-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    .favorites-item__image {
+        width: 80px;
+        height: 80px;
+    }
+
+    .favorites-item__name {
+        font-size: 0.9rem;
+    }
+
+    .favorites-item__artist {
+        font-size: 0.8rem;
+    }
+    
+}

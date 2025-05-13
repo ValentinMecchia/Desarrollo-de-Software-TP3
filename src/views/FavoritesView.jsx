@@ -78,7 +78,7 @@ function FavoritesView() {
                                 <div
                                     key={song.id}
                                     className="favorites-item favorite-item-song"
-                                    onClick={() => handleSongClick(song.albumId)} // Redirigir al álbum correspondiente
+                                    onClick={() => handleSongClick(song.albumId)}
                                     style={{ cursor: "pointer" }}
                                 >
                                     <div className="favorites-item__content">
@@ -90,7 +90,7 @@ function FavoritesView() {
                                         <button
                                             className="remove-button"
                                             onClick={(e) => {
-                                                e.stopPropagation(); // Evitar la navegación al eliminar
+                                                e.stopPropagation();
                                                 removeFavoriteSong(song.id);
                                             }}
                                         >

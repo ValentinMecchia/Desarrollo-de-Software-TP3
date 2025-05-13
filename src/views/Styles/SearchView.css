@@ -286,6 +286,10 @@
         font-size: 2rem;
     }
 
+    .favorites-sidebar {
+        width: 100%;
+    }
+
     .artist-list,
     .song-list {
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
